@@ -5,6 +5,7 @@ import com.xinyuan.pojo.Xinyuan;
 import com.xinyuan.service.XinyuanService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,10 +20,10 @@ public class XinyuanItemController {
     @Autowired
     private XinyuanService xinyuanService;
 
-    @GetMapping("/getXinyuan")
+    @GetMapping("/getXyItems")
     public Result getXinyuan(@RequestParam Long state){
         List<Xinyuan> list = new ArrayList<>();
-//        list = XinyuanService.getItems();
+        list = xinyuanService.getItems(state);
         return Result.success(list);
     }
 }

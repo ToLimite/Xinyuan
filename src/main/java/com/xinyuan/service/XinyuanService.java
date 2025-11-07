@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 public interface XinyuanService {
-    public List<Xinyuan> getItems();
+    List<Xinyuan> getItems(Long state);
 }

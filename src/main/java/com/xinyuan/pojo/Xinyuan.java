@@ -2,8 +2,10 @@ package com.xinyuan.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Data
@@ -16,7 +18,7 @@ public class Xinyuan {
     private String context;
     private String school;
     private String contact;
-    private int state;
+    private Integer state;
     private LocalDateTime time;
 
 }

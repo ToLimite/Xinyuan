@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequestMapping("/hello")
 public class HelloController {
+
     @GetMapping
     public Result helloWorld(){
         return Result.success("Hello, world!");
