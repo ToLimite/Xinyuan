@@ -1,40 +1,35 @@
 package com.xinyuan.utils;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 
+import java.security.Key;
 import java.util.Date;
 import java.util.Map;
 
 public class JwtUtils {
 
-    private static final String signKey = "TmFua2FpQ1M="; // 密钥：NankaiCS的base64编码
-    private static final Long expire = 43200000L;
+    private static final String signKey = "TmFua2FpVW5pdmVyc2l0eUNvbGxlZ2VPZlNvZnR3YXJl="; // NankaiUniversityCollegeOfSoftware 的 Base64编码
+    private static final long expire = 43200000L; // 12小时
 
-    /**
-     * 生成JWT令牌
-     * @return
-     */
-    public static String generateJwt(Map<String,Object> claims){
-        String jwt = Jwts.builder()
-                .addClaims(claims)
-                .signWith(SignatureAlgorithm.HS256, signKey)
-                .setExpiration(new Date(System.currentTimeMillis() + expire))
-                .compact();
-        return jwt;
+    private static Key getKey(){
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(signKey));
     }
 
-    /**
-     * 解析JWT令牌
-     * @param jwt JWT令牌
-     * @return JWT第二部分负载 payload 中存储的内容
-     */
+    public static String generateJwt(Map<String,Object> claims){
+        return Jwts.builder()
+                .setClaims(claims)
+                .setExpiration(new Date(System.currentTimeMillis() + expire))
+                .signWith(getKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
     public static Claims parseJWT(String jwt){
-        Claims claims = Jwts.parser()
-                .setSigningKey(signKey)
+        return Jwts.parserBuilder()
+                .setSigningKey(getKey())
+                .build()
                 .parseClaimsJws(jwt)
                 .getBody();
-        return claims;
     }
 }

@@ -19,6 +19,7 @@ public class Xinyuan {
     private String school;
     private String contact;
     private Integer state;
+    private Long starUser;
     private LocalDateTime time;
 
 }

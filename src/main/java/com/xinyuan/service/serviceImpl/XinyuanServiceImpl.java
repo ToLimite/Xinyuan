@@ -1,6 +1,6 @@
 package com.xinyuan.service.serviceImpl;
 
-import com.xinyuan.exception.BaseException;
+import com.xinyuan.exception.BusinessException;
 import com.xinyuan.mapper.XinyuanMapper;
 import com.xinyuan.pojo.Xinyuan;
 import com.xinyuan.service.XinyuanService;
@@ -25,14 +25,18 @@ public class XinyuanServiceImpl implements XinyuanService {
     public void starupXinyuan(Long userId, Long itemId) {
         Xinyuan item = xinyuanMapper.getById(itemId);
         if(item == null){
-            throw new BaseException("心愿不存在！");
+            throw new BusinessException("心愿不存在！");
         }else if(item.getState() == 1){
-            throw new BaseException("心愿已被点亮！");
+            throw new BusinessException("心愿已被点亮！");
         }else{
-            xinyuanMapper.starupXinyuan(itemId);
-            xinyuanMapper.insertStarup(userId, itemId);
+            xinyuanMapper.starupXinyuan(userId, itemId);
         }
+    }
 
+    @Override
+    public List<Xinyuan> getItemsByStarUser(Long userId) {
+        List<Xinyuan> xyItemsByStarUser = xinyuanMapper.getXyItemsByStarUser(userId);
+        return xyItemsByStarUser;
     }
 
 
