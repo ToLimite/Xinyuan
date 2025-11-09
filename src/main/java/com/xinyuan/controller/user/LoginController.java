@@ -38,7 +38,7 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public Result Register(@RequestBody RegisterDTO registerDTO){
+    public Result register(@RequestBody RegisterDTO registerDTO){
         userService.register(registerDTO);
         return Result.success();
     }
